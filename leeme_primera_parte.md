@@ -1,9 +1,11 @@
 🧩 1️⃣ Crear carpeta del proyecto
-mkdir UIII_Pasteleria_0777
-cd UIII_Pasteleria_0777
+
+    mkdir UIII_Pasteleria_0777
+    cd UIII_Pasteleria_0777
 
 🧩 2️⃣ Abrir VS Code sobre la carpeta
-code .
+    
+    code .
 
 🧩 3️⃣ Abrir terminal integrada en VS Code
 
@@ -11,15 +13,15 @@ En el menú superior:
 ➡️ Terminal → New Terminal
 
 🧩 4️⃣ Crear entorno virtual
-python -m venv .venv
+    
+    python -m venv .venv
 
 🧩 5️⃣ Activar entorno virtual (PowerShell)
-.\.venv\Scripts\Activate.ps1
-
-
+    
+    .\.venv\Scripts\Activate.ps1
 ⚠️ Si usas CMD:
 
-.\.venv\Scripts\activate
+    .\.venv\Scripts\activate
 
 🧩 6️⃣ Seleccionar intérprete de Python en VS Code
 
@@ -28,19 +30,23 @@ Presiona:
 Ctrl + Shift + P → Python: Select Interpreter → .venv\Scripts\python.exe
 
 🧩 7️⃣ Instalar Django
-pip install django
+    
+    pip install django
 
 🧩 8️⃣ Crear el proyecto sin duplicar carpeta
-django-admin startproject backend_pasteleria .
+    
+    django-admin startproject backend_pasteleria .
 
 
 El punto final (.) evita crear una subcarpeta adicional.
 
 🧩 9️⃣ Crear la aplicación dentro del proyecto
-python manage.py startapp app_pasteleria
+    
+    python manage.py startapp app_pasteleria
 
 🧩 🔟 Ejecutar servidor para probar
-python manage.py runserver 8036
+    
+    python manage.py runserver 8036
 
 
 Copia el enlace en tu navegador:
@@ -60,20 +66,22 @@ INSTALLED_APPS = [
 
 Agrega dentro de la lista:
 
-'app_pasteleria',
+    
+    'app_pasteleria',
 
 🧩 1️⃣2️⃣ Crear el archivo models.py
 
 Copia este código en:
 📁 app_pasteleria/models.py
 
-from django.db import models
-from django.utils import timezone
+    from django.db import models
+    from django.utils import timezone
 
 # ===============================
 # MODELO: PRODUCTO
 # ===============================
-class Producto(models.Model):
+    class Producto(models.Model):
+
     id_producto = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=50, blank=True, null=True)
@@ -81,7 +89,7 @@ class Producto(models.Model):
     stock = models.BigIntegerField()
     unidad_medida = models.CharField(max_length=50, verbose_name="Unidad de medida (Ej: kg)")
     creado_el = models.DateTimeField(auto_now_add=True)
-
+    
     def __str__(self):
         return self.nombre
 
@@ -89,7 +97,7 @@ class Producto(models.Model):
 # ===============================
 # MODELO: ORDEN
 # ===============================
-class Orden(models.Model):
+    class Orden(models.Model): 
     ID_Orden = models.AutoField(primary_key=True)
     cliente = models.CharField(max_length=50)
     telefono_cliente = models.CharField(max_length=15, blank=True, null=True)
@@ -98,10 +106,10 @@ class Orden(models.Model):
     fecha_y_hora = models.DateTimeField(default=timezone.now)
     tipo_pago = models.CharField(max_length=50, blank=True, null=True)
     total = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
-
+    
     def __str__(self):
         return f"Orden {self.ID_Orden} - {self.cliente}"
-
+        
     def calcular_total(self):
         total = sum([p.precio for p in self.productos.all()])
         self.total = total
@@ -111,7 +119,8 @@ class Orden(models.Model):
 # ===============================
 # MODELO: EMPLEADO
 # ===============================
-class Empleado(models.Model):
+
+    class Empleado(models.Model):
     id_empleado = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     telefono = models.CharField(max_length=15, blank=True, null=True)
@@ -121,7 +130,7 @@ class Empleado(models.Model):
     salario = models.BigIntegerField(blank=True, null=True)
     activo = models.BooleanField(default=True)
     orden_asignada = models.ForeignKey(Orden, on_delete=models.SET_NULL, null=True, blank=True, related_name="empleados_asignados")
-
+    
     def __str__(self):
         return self.nombre
 
@@ -181,17 +190,17 @@ urlpatterns = [
 Copia este código en:
 📁 app_pasteleria/views.py
 
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Orden, Producto
+    from django.shortcuts import render, redirect, get_object_or_404
+    from .models import Orden, Producto
 
-def inicio_pasteleria(request):
+    def inicio_pasteleria(request):
     return render(request, 'inicio.html')
 
-def ver_ordenes(request):
+    def ver_ordenes(request):
     ordenes = Orden.objects.all().order_by('-fecha_y_hora')
     return render(request, 'ordenes/ver_ordenes.html', {'ordenes': ordenes})
 
-def agregar_orden(request):
+    def agregar_orden(request):
     productos = Producto.objects.all()
     if request.method == 'POST':
         cliente = request.POST.get('cliente', '')
@@ -212,7 +221,7 @@ def agregar_orden(request):
         return redirect('ver_ordenes')
     return render(request, 'ordenes/agregar_orden.html', {'productos': productos})
 
-def actualizar_orden(request, pk):
+    def actualizar_orden(request, pk):
     orden = get_object_or_404(Orden, pk=pk)
     productos = Producto.objects.all()
     if request.method == 'POST':
@@ -228,7 +237,7 @@ def actualizar_orden(request, pk):
         return redirect('ver_ordenes')
     return render(request, 'ordenes/actualizar_orden.html', {'orden': orden, 'productos': productos})
 
-def borrar_orden(request, pk):
+    def borrar_orden(request, pk):
     orden = get_object_or_404(Orden, pk=pk)
     if request.method == 'POST':
         orden.delete()
@@ -236,14 +245,18 @@ def borrar_orden(request, pk):
     return render(request, 'ordenes/borrar_orden.html', {'orden': orden})
 
 🧩 1️⃣7️⃣ Realizar migraciones
-python manage.py makemigrations
-python manage.py migrate
+
+    python manage.py makemigrations
+    python manage.py migrate
+    
 
 🧩 1️⃣8️⃣ Crear superusuario (opcional para admin)
-python manage.py createsuperuser
+
+    python manage.py createsuperuser
 
 🧩 1️⃣9️⃣ Ejecutar servidor
-python manage.py runserver 8036
+
+    python manage.py runserver 8036
 
 
 Abrir en navegador:
