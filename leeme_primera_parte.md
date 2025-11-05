@@ -269,15 +269,46 @@ http://127.0.0.1:8036/
 
 Estructura de carpetas dentro de tu app:
 
-    app_pasteleria/
+
+    UIII_Pasteleria_0777/
+    └── backend_pasteleria/              # Proyecto principal
+    ├── .venv/                       # Entorno virtual de Python
+    │   ├── Scripts/
+    │   ├── Lib/
+    │   └── pyvenv.cfg
     │
-    ├─ templates/
-    │  ├─ base.html
-    │  ├─ navbar.html
-    │  ├─ footer.html
-    │  ├─ inicio.html
-    │  ├─ ordenes/
-    │  │   ├─ ver_ordenes.html
-    │  │   ├─ agregar_orden.html
-    │  │   ├─ actualizar_orden.html
-    │  │   └─ borrar_orden.html
+    ├── backend_pasteleria/          # Configuración principal del proyecto
+    │   ├── __init__.py
+    │   ├── asgi.py
+    │   ├── settings.py              # Configuración general (apps, BD, plantillas, etc.)
+    │   ├── urls.py                  # Enrutamiento global del proyecto
+    │   └── wsgi.py
+    │
+    ├── app_pasteleria/              # Aplicación principal
+    │   ├── __init__.py
+    │   ├── admin.py                 # Registro de modelos en el panel de administración
+    │   ├── models.py                # Modelos: Productos, Ordenes y Empleados
+    │   ├── views.py                 # Funciones para CRUD y vistas del sistema
+    │   ├── urls.py                  # Rutas específicas de la app
+    │   ├── templates/               # Carpeta de plantillas HTML
+    │   │   ├── base.html            # Plantilla base con Bootstrap
+    │   │   ├── header.html          # Encabezado o título del sistema
+    │   │   ├── navbar.html          # Menú de navegación con submenús
+    │   │   ├── footer.html          # Pie de página con derechos de autor
+    │   │   ├── inicio.html          # Página principal con imagen e información
+    │   │   └── clientes/            # Subcarpeta para vistas CRUD
+    │   │       ├── agregar_producto.html
+    │   │       ├── ver_productos.html
+    │   │       ├── actualizar_producto.html
+    │   │       └── borrar_producto.html
+    │   │
+    │   └── static/                  # Archivos estáticos (CSS, imágenes, JS)
+    │       └── css/
+    │           └── style.css        # Estilos personalizados del sistema
+    │
+    ├── media/                       # Carpeta creada automáticamente (imágenes o archivos)
+    │
+    ├── manage.py                    # Script principal de Django
+    │
+    └── requirements.txt             # Dependencias del proyecto (Django, etc.)
+
