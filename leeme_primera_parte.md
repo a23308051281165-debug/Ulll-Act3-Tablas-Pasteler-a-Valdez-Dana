@@ -137,38 +137,40 @@ Copia este código en:
 🧩 1️⃣3️⃣ Registrar los modelos en admin.py
 
 Copia esto en:
-📁 app_pasteleria/admin.py
+    
+    📁 app_pasteleria/admin.py
 
-from django.contrib import admin
-from .models import Producto, Orden, Empleado
+    from django.contrib import admin
+    from .models import Producto, Orden, Empleado
 
-@admin.register(Producto)
-class ProductoAdmin(admin.ModelAdmin):
+    @admin.register(Producto)
+    class ProductoAdmin(admin.ModelAdmin):
     list_display = ('id_producto', 'nombre', 'precio', 'stock', 'unidad_medida')
 
-@admin.register(Orden)
-class OrdenAdmin(admin.ModelAdmin):
+    @admin.register(Orden)
+    class OrdenAdmin(admin.ModelAdmin):
     list_display = ('ID_Orden', 'cliente', 'fecha_y_hora', 'total')
 
-@admin.register(Empleado)
-class EmpleadoAdmin(admin.ModelAdmin):
+    @admin.register(Empleado)
+    class EmpleadoAdmin(admin.ModelAdmin):
     list_display = ('id_empleado', 'nombre', 'puesto', 'activo')
 
 🧩 1️⃣4️⃣ Crear el archivo urls.py de la app
 
 Copia este código en:
-📁 app_pasteleria/urls.py
+    
+    📁 app_pasteleria/urls.py
 
-from django.urls import path
-from . import views
+    from django.urls import path
+    from . import views
 
-urlpatterns = [
+    urlpatterns = [
     path('', views.inicio_pasteleria, name='inicio_pasteleria'),
     path('ordenes/', views.ver_ordenes, name='ver_ordenes'),
     path('ordenes/agregar/', views.agregar_orden, name='agregar_orden'),
     path('ordenes/actualizar/<int:pk>/', views.actualizar_orden, name='actualizar_orden'),
     path('ordenes/borrar/<int:pk>/', views.borrar_orden, name='borrar_orden'),
-]
+    ]
 
 🧩 1️⃣5️⃣ Conectar URLs en el proyecto principal
 
@@ -177,13 +179,13 @@ Abre:
 
 Reemplaza su contenido por:
 
-from django.contrib import admin
-from django.urls import path, include
+    from django.contrib import admin
+    from django.urls import path, include
 
-urlpatterns = [
+    urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app_pasteleria.urls')),
-]
+    ]
 
 🧩 1️⃣6️⃣ Crear views.py
 
@@ -267,15 +269,15 @@ http://127.0.0.1:8036/
 
 Estructura de carpetas dentro de tu app:
 
-app_pasteleria/
-│
-├─ templates/
-│  ├─ base.html
-│  ├─ navbar.html
-│  ├─ footer.html
-│  ├─ inicio.html
-│  ├─ ordenes/
-│  │   ├─ ver_ordenes.html
-│  │   ├─ agregar_orden.html
-│  │   ├─ actualizar_orden.html
-│  │   └─ borrar_orden.html
+    app_pasteleria/
+    │
+    ├─ templates/
+    │  ├─ base.html
+    │  ├─ navbar.html
+    │  ├─ footer.html
+    │  ├─ inicio.html
+    │  ├─ ordenes/
+    │  │   ├─ ver_ordenes.html
+    │  │   ├─ agregar_orden.html
+    │  │   ├─ actualizar_orden.html
+    │  │   └─ borrar_orden.html
