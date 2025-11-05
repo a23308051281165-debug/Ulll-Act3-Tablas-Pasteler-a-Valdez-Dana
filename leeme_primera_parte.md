@@ -275,40 +275,34 @@ Estructura de carpetas dentro de tu app:
     ├── .venv/                       # Entorno virtual de Python
     │   ├── Scripts/
     │   ├── Lib/
-    │   └── pyvenv.cfg
     │
-    ├── backend_pasteleria/          # Configuración principal del proyecto
+    ├── backend_pasteleria/        
     │   ├── __init__.py
     │   ├── asgi.py
-    │   ├── settings.py              # Configuración general (apps, BD, plantillas, etc.)
-    │   ├── urls.py                  # Enrutamiento global del proyecto
+    │   ├── settings.py             
+    │   ├── urls.py                
     │   └── wsgi.py
     │
-    ├── app_pasteleria/              # Aplicación principal
+    ├── app_pasteleria/            
     │   ├── __init__.py
-    │   ├── admin.py                 # Registro de modelos en el panel de administración
-    │   ├── models.py                # Modelos: Productos, Ordenes y Empleados
-    │   ├── views.py                 # Funciones para CRUD y vistas del sistema
-    │   ├── urls.py                  # Rutas específicas de la app
-    │   ├── templates/               # Carpeta de plantillas HTML
-    │   │   ├── base.html            # Plantilla base con Bootstrap
-    │   │   ├── header.html          # Encabezado o título del sistema
-    │   │   ├── navbar.html          # Menú de navegación con submenús
-    │   │   ├── footer.html          # Pie de página con derechos de autor
-    │   │   ├── inicio.html          # Página principal con imagen e información
-    │   │   └── clientes/            # Subcarpeta para vistas CRUD
-    │   │       ├── agregar_producto.html
-    │   │       ├── ver_productos.html
-    │   │       ├── actualizar_producto.html
-    │   │       └── borrar_producto.html
-    │   │
-    │   └── static/                  # Archivos estáticos (CSS, imágenes, JS)
+    │   ├── admin.py               
+    │   ├── models.py               
+    │   ├── views.py             
+    │   ├── urls.py                  
+    │   ├── templates/              
+    │   │   ├── base.html          
+    │   │   ├── header.html         
+    │   │   ├── navbar.html       
+    │   │   ├── footer.html        
+    │   │   ├── inicio.html          
+    │   │   └── clientes/        
+    │   └── static/                  
     │       └── css/
-    │           └── style.css        # Estilos personalizados del sistema
+    │           └── style.css       
     │
-    ├── media/                       # Carpeta creada automáticamente (imágenes o archivos)
+    ├── media/                       
     │
-    ├── manage.py                    # Script principal de Django
+    ├── manage.py                   
     │
-    └── requirements.txt             # Dependencias del proyecto (Django, etc.)
+    └── requirements.txt             
 
