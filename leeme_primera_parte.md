@@ -246,6 +246,190 @@ Copia este código en:
         return redirect('ver_ordenes')
     return render(request, 'ordenes/borrar_orden.html', {'orden': orden})
 
+Agregar los html
+🩷 1️⃣ base.html
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Pastelería{% endblock %}</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilo personalizado -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+    {% include 'header.html' %}
+    {% include 'navbar.html' %}
+
+    <main class="container mt-4">
+        {% block contenido %}{% endblock %}
+    </main>
+
+    {% include 'footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
+    
+2️⃣ header.html
+
+    <header class="bg-light text-center py-3 shadow-sm">
+        <h1 class="fw-bold text-primary">🎂 Sistema de Administración de Pastelería 🎂</h1>
+    </header>
+🍰 3️⃣ navbar.html
+<nav class="navbar navbar-expand-lg navbar-dark bg-pink shadow">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="{% url 'inicio' %}">Pastelería</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPasteleria">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="menuPasteleria">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Productos</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'agregar_producto' %}">Agregar</a></li>
+            <li><a class="dropdown-item" href="{% url 'ver_productos' %}">Ver</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Órdenes</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Agregar</a></li>
+            <li><a class="dropdown-item" href="#">Ver</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Empleados</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Agregar</a></li>
+            <li><a class="dropdown-item" href="#">Ver</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+🌸 4️⃣ footer.html
+
+    <footer class="bg-light text-center py-3 mt-5 border-top">
+    <p class="mb-0">
+        &copy; <span id="year"></span> | Creado por <strong>Valdez Pérez Dana</strong> 🍰
+    </p>
+    </footer>
+
+    <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+🎀 5️⃣ inicio.html
+
+    {% extends 'base.html' %}
+    {% block titulo %}Inicio | Pastelería{% endblock %}
+
+    {% block contenido %}
+    <div class="text-center">
+    <h2 class="text-primary mb-3">Bienvenido al Sistema de Administración de Pastelería</h2>
+    <p class="lead">Gestiona fácilmente tus productos, órdenes y empleados con un solo clic.</p>
+    <img src="https://cdn.pixabay.com/photo/2017/08/30/12/45/cake-2690604_1280.jpg" alt="Pastelería" class="img-fluid rounded shadow-lg mt-3" width="60%">
+    </div>
+    {% endblock %}
+
+🧁 6️⃣ agregar_producto.html
+    
+    {% extends 'base.html' %}
+    {% block titulo %}Agregar Producto{% endblock %}
+
+    {% block contenido %}
+    <h2>Agregar Producto</h2>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success">Guardar</button>
+    <a href="{% url 'ver_productos' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+    {% endblock %}
+
+🍩 7️⃣ ver_productos.html
+   
+    {% extends 'base.html' %}
+    {% block titulo %}Lista de Productos{% endblock %}
+
+    {% block contenido %}
+    <h2>Lista de Productos</h2>
+    <table class="table table-striped">
+    <thead class="table-pink">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.id }}</td>
+            <td>{{ producto.nombre }}</td>
+            <td>${{ producto.precio }}</td>
+            <td>{{ producto.categoria }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>
+                <a href="{% url 'actualizar_producto' producto.id %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'borrar_producto' producto.id %}" class="btn btn-danger btn-sm">Borrar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center">No hay productos registrados</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    {% endblock %}
+
+🧇 8️⃣ actualizar_producto.html
+
+    {% extends 'base.html' %}
+    {% block titulo %}Actualizar Producto{% endblock %}
+
+    {% block contenido %}
+    <h2>Actualizar Producto</h2>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary">Actualizar</button>
+    <a href="{% url 'ver_productos' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+    {% endblock %}
+
+🍮 9️⃣ borrar_producto.html
+
+    {% extends 'base.html' %}
+    {% block titulo %}Borrar Producto{% endblock %}
+
+    {% block contenido %}
+    <h2>Confirmar eliminación</h2>
+    <p>¿Seguro que deseas eliminar el producto <strong>{{ producto.nombre }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'ver_productos' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+    {% endblock %}
 🧩 1️⃣7️⃣ Realizar migraciones
 
     python manage.py makemigrations
@@ -270,7 +454,7 @@ http://127.0.0.1:8036/
 Estructura de carpetas dentro de tu app:
 
 
-    UIII_Pasteleria_0777/
+     UIII_Pasteleria_0777/
     └── backend_pasteleria/              # Proyecto principal
     ├── .venv/                       # Entorno virtual de Python
     │   ├── Scripts/
