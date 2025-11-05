@@ -246,7 +246,7 @@ Copia este código en:
         return redirect('ver_ordenes')
     return render(request, 'ordenes/borrar_orden.html', {'orden': orden})
 
-Agregar los html
+🧩 Crear el proyecto sin duplicar carpeta
 🩷 1️⃣ base.html
 
     <!DOCTYPE html>
@@ -280,9 +280,10 @@ Agregar los html
         <h1 class="fw-bold text-primary">🎂 Sistema de Administración de Pastelería 🎂</h1>
     </header>
 🍰 3️⃣ navbar.html
-<nav class="navbar navbar-expand-lg navbar-dark bg-pink shadow">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="{% url 'inicio' %}">Pastelería</a>
+  
+    <nav class="navbar navbar-expand-lg navbar-dark bg-pink shadow">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{% url 'inicio' %}">Pastelería</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPasteleria">
       <span class="navbar-toggler-icon"></span>
     </button>
